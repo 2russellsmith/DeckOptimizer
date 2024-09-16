@@ -2,7 +2,7 @@ import scipy.stats as stats
 
 # Parameters for the problem
 n = 10  # Total draws per attempt
-total_cards = 100  # Total number of cards available (including tutors)
+total_cards = 99  # Total number of cards available (including tutors)
 
 # Number of each card type needed for each condition
 land_needed = 3  # (land cards)
@@ -14,8 +14,8 @@ persist_with_payoff_needed_1 = 1  # (persist creatures with payoffs)
 payoff_needed = 1  # (payoff cards)
 
 # Max limits for each card type
-max_land = 60  # Maximum number of land cards
-max_ramp = 20  # Maximum number of ramp cards
+max_land = 50  # Maximum number of land cards
+max_ramp = 30  # Maximum number of ramp cards
 max_sacrifice_with_payoff = 3  # Maximum number of sacrifice with payoff cards
 max_sacrifice_without_payoff = 10  # Maximum number of sacrifice without payoff cards
 max_persist_without_payoff = 8  # Maximum number of persist without payoff cards
@@ -65,13 +65,7 @@ def calculate_success_probability(land_total, ramp_total, sacrifice_with_payoff_
     condition_4_prob = land_prob * ramp_prob * sacrifice_without_payoff_prob * persist_without_payoff_prob * payoff_prob
 
     # Combined probability (success in at least one condition)
-    combined_prob = (condition_1_prob + condition_2_prob + condition_3_prob + condition_4_prob
-                     - (condition_1_prob * condition_2_prob)
-                     - (condition_1_prob * condition_3_prob)
-                     - (condition_1_prob * condition_4_prob)
-                     - (condition_2_prob * condition_3_prob)
-                     - (condition_2_prob * condition_4_prob)
-                     - (condition_3_prob * condition_4_prob))
+    combined_prob = 1 - ((1 - condition_1_prob) * (1 - condition_2_prob) * (1 - condition_3_prob) * (1 - condition_4_prob))
 
     return combined_prob
 
